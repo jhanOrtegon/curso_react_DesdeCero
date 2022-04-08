@@ -6,6 +6,11 @@ const AddCategory = ({ setCategories }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (stateInput.inputCategory.trim().length < 3) {
+            alert('debe haver minimo 4 caracteres')
+            return
+        }
         setCategories((e) => [...e, stateInput.inputCategory])
         setStateInput({ inputCategory: '' })
     }
