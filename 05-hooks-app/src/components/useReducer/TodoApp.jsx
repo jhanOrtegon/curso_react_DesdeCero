@@ -1,15 +1,14 @@
 import React, { useReducer } from 'react'
+import { useEffect } from 'react'
 import useForm from '../../hooks/useForm'
 import TodoList from './TodoList'
 import { todoReducer } from './todoReducer'
 
 const TodoApp = () => {
 
-    const initialState = [{
-        id: new Date().getTime(),
-        desc: 'Aprendiendo React',
-        done: false
-    }]
+    const initialState = () => {
+        return JSON.parse(localStorage.getItem('todos')) || []
+    }
 
     const { handleChange, reset, valuesForm } = useForm({
         inputTodo: ''
@@ -17,8 +16,7 @@ const TodoApp = () => {
 
     const { inputTodo } = valuesForm
 
-    const [todos, dispatch] = useReducer(todoReducer, initialState)
-    console.log(todos);
+    const [todos, dispatch] = useReducer(todoReducer, [], initialState)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,10 +30,30 @@ const TodoApp = () => {
                 done: false
             }
         })
-
         reset();
     }
 
+    const handleEliminar = (id) => {
+        dispatch({
+            type: 'remove',
+            payload: {
+                id: id
+            }
+        })
+    }
+
+    const handleCompletar = (id) => {
+        dispatch({
+            type: 'completed',
+            payload: {
+                id: id
+            }
+        })
+    }
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos])
 
     return (
         <>
@@ -53,11 +71,20 @@ const TodoApp = () => {
                 />
             </form>
 
+            {
+                !todos.length &&
+                <div className=' w-75 m-auto text-center alert alert-primary'>Digita un tudo</div>
+            }
 
             <ul>
                 {
                     todos.map((e) => (
-                        <TodoList key={e.id} {...e} />
+                        <TodoList
+                            key={e.id}
+                            {...e}
+                            handleEliminar={handleEliminar}
+                            handleCompletar={handleCompletar}
+                        />
                     ))
 
                 }
