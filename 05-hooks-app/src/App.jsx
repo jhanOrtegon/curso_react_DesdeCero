@@ -1,9 +1,9 @@
 import React from 'react'
-import { Padre } from './components/useMemos/Padre'
+import TodoApp from './components/useReducer/TodoApp'
 import './style.css'
 
 export const App = () => {
   return (
-    <Padre />
+    <TodoApp />
   )
 }
