@@ -1,19 +1,19 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate('/login', { replace: true })
+    }
+
     return (
         <div >
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <div className="container">
                     <NavLink className="navbar-brand" to="/">Navbar</NavLink>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/">Home</NavLink>
-                            </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/marvel">Marvel</NavLink>
                             </li>
@@ -23,10 +23,12 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/search">Search</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/logout">Logout</NavLink>
-                            </li>
                         </ul>
+                    </div>
+
+                    <div className='text-white'>
+                        <span className='mx-4'>jhan carlos</span>
+                        <button onClick={handleLogout} className='btn btn-outline-danger'>Logout</button>
                     </div>
                 </div>
             </nav>
