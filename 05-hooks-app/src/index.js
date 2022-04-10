@@ -1,7 +1,7 @@
 import React from 'react';
-import { App } from './App';
 import { createRoot } from 'react-dom/client';
+import MainApp from './components/useContext/MainApp';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<App tab="home" />);
+root.render(<MainApp tab="home" />);
