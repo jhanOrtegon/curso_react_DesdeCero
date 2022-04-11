@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../Auth/authContext';
+import { types } from '../../Types/types';
 const Navbar = () => {
     const navigate = useNavigate();
+    const { user, dispatch } = useContext(AuthContext);
+    const { username } = user
 
     const handleLogout = () => {
+        dispatch({
+            type: types.logout
+        })
         navigate('/login', { replace: true })
     }
 
@@ -27,7 +34,7 @@ const Navbar = () => {
                     </div>
 
                     <div className='text-white'>
-                        <span className='mx-4'>jhan carlos</span>
+                        <span className='mx-4'>{username}</span>
                         <button onClick={handleLogout} className='btn btn-outline-danger'>Logout</button>
                     </div>
                 </div>

@@ -17,14 +17,13 @@ const SearchScreen = () => {
         searchInput: q,
     }
     const [valuesForm, setValuesForm] = useState(initialState)
-    const { searchInput } = valuesForm
+    const { searchInput = '' } = valuesForm
     const [dataHeroe, setDataHeroe] = useState([]);
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
 
         if (!searchInput.trim().length) {
             setError({ error: true, message: 'No hay Coincidencias con tu busqueda' })

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../Auth/authContext'
+import { types } from '../../Types/types'
 
 const LoginScreen = () => {
 
@@ -7,6 +10,8 @@ const LoginScreen = () => {
         username: '',
         password: ''
     }
+
+    const { dispatch } = useContext(AuthContext);
 
     const [valuesForm, setValuesForm] = useState(initialState)
     const [error, setError] = useState({ error: false, message: false })
@@ -20,8 +25,12 @@ const LoginScreen = () => {
             setError({ error: true, message: 'EL usuario o Contraseña Minimo Debe tener 4 Caracteres' })
             return
         }
+        dispatch({
+            type: types.login,
+            payload: { username }
+        })
         setError({ error: false, message: false });
-        navigate('/', { replace: true   })
+        navigate('/', { replace: true })
     }
 
     const handleChange = (e) => {
